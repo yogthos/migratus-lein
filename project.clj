@@ -1,4 +1,4 @@
-(defproject migratus-lein "0.1.0-SNAPSHOT"
+(defproject migratus-lein "0.1.0"
   :description "MIGRATE ALL THE THINGS!"
   :eval-in-leiningen true
   :aliases {"test!" ["do" "clean," "deps," "test"]}
