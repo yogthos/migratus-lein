@@ -1,6 +1,8 @@
 (ns example.test.core
-  (:use [example.core])
-  (:use [clojure.test]))
+  (:require [clojure.java.jdbc :as sql]
+            [clojure.test :refer :all]
+            [example.core :refer :all]
+            [migratus.database :refer :all]))
 
 (def config {:store :database
              :migration-dir "migrations/"
