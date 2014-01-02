@@ -1,5 +1,5 @@
 (ns example.test.core
-  (:require [clojure.java.jdbc :as sql]
+  (:require [clojure.java.jdbc.deprecated :as sql]
             [clojure.test :refer :all]
             [example.core :refer :all]
             [migratus.database :refer :all]))
