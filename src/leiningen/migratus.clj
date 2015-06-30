@@ -28,6 +28,7 @@ migratus as configuration.
 Usage `lein migratus [command & ids]`.  Where 'command' is:
 
 migrate  Bring up any migrations that are not completed.
+rollback BRing down the last applied migration.
 up       Bring up the migrations specified by their ids.  Skips any migrations
          that are already up.
 down     Bring down the migrations specified by their ids.  Skips any migrations
@@ -41,16 +42,23 @@ command will be executed."
   (if-let [config (:migratus project)]
     (let [config (assoc config :store :cli :real-store (:store config))]
       (case command
-        "up" (eval/eval-in-project
-              project
-              `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) ids)))
-              '(require 'migratus.core))
-        "down" (eval/eval-in-project
-                project
-                `(apply core/down
-                        ~config
-                        ~(cons 'vector (map #(Long/parseLong %) ids)))
-                '(require 'migratus.core))
+        "up"
+        (eval/eval-in-project
+          project
+          `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) ids)))
+          '(require 'migratus.core))
+
+        "down"
+        (eval/eval-in-project
+          project
+          `(apply core/down
+                  ~config
+                  ~(cons 'vector (map #(Long/parseLong %) ids)))
+          '(require 'migratus.core))
+
+        "rollback"
+        (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
+
         (if (and (or (= command "migrate") (nil? command)) (empty? ids))
           (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
           (println "Unexpected arguments to 'migrate'"))))
