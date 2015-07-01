@@ -13,7 +13,6 @@
 ;;;; under the License.
 (ns leiningen.migratus
   (:require [migratus.core :as core]
-            environ.core
             [leiningen.core.eval :as eval]))
 
 (defn migratus
