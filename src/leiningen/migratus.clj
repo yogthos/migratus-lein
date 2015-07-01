@@ -34,8 +34,9 @@ create   Create a new migration file with the current date and the given name.
 If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
   [project & [command & args]]
-
-  (if-let [config (:migratus project)]
+  (if-let [config (-> (:migratus project)
+                      (update-in [:db]
+                                 #(or % (-> project :env :database-url))))]
     (case command
       "up"
       (do

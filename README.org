@@ -67,6 +67,13 @@
     :  :migration-dir "migrations"
     :  :db ~(get (System/getenv) "DATABASE_URL")}
 
+    When using the second option, it's also possible to put the config in =profiles.clj=, e.g:
+
+    : {:provided {:env {:database-url "jdbc:h2:./my_app_dev.db"}}}
+
+    The second method is preferred as it doesn't hardcode database connection values in files that
+    are checked into the repository.
+
     The :migration-dir key specifies the directory on the classpath in which to
     find SQL migration files.  Each file should be named with the following
     pattern "[id]-[name]-[direction].sql" where id is a unique integer id for
