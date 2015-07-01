@@ -13,10 +13,8 @@
 ;;;; under the License.
 (ns leiningen.migratus
   (:require [migratus.core :as core]
-            [clojure.tools.logging :as log]
-            [clojure.tools.logging.impl :as logi]
-            [leiningen.core.eval :as eval])
-  (:import (java.util.logging Logger Level)))
+            environ.core
+            [leiningen.core.eval :as eval]))
 
 (defn migratus
   "Maintain database migrations.
@@ -37,31 +35,40 @@ create   Create a new migration file with the current date and the given name.
 If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
   [project & [command & args]]
-  (if (= "java.util.logging" (logi/name log/*logger-factory*))
-    (.setLevel (Logger/getLogger "") Level/SEVERE))
+
   (if-let [config (:migratus project)]
     (case command
       "up"
-      (eval/eval-in-project
-        project
-        `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) args)))
-        '(require 'migratus.core))
+      (do
+        (println "migrating" args)
+        (eval/eval-in-project
+          project
+          `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) args)))
+          '(require 'migratus.core)))
 
       "down"
-      (eval/eval-in-project
-        project
-        `(apply core/down
-                ~config
-                ~(cons 'vector (map #(Long/parseLong %) args)))
-        '(require 'migratus.core))
+      (do
+        (println "rolling back" args)
+        (eval/eval-in-project
+          project
+          `(apply core/down
+                  ~config
+                  ~(cons 'vector (map #(Long/parseLong %) args)))
+          '(require 'migratus.core)))
 
       "rollback"
-      (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
+      (do
+        (println "rolling back last migration")
+        (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core)))
 
       "create"
-      (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core))
+      (do
+        (println "creating migration files for" args)
+        (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core)))
 
       (if (and (or (= command "migrate") (nil? command)) (empty? args))
-        (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
+        (do
+          (println "migrating all outstanding migrations")
+          (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core)))
         (println "Unexpected arguments to 'migrate'")))
     (println "Missing :migratus config in project.clj")))
