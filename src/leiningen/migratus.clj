@@ -33,7 +33,7 @@ up       Bring up the migrations specified by their ids.  Skips any migrations
 down     Bring down the migrations specified by their ids.  Skips any migrations
          that are already down.
 
-If you run `lein migrate` without specifying a command, then the 'migrate'
+If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
   [project & [command & ids]]
   (if (= "java.util.logging" (logi/name log/*logger-factory*))
