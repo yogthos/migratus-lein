@@ -32,6 +32,7 @@ up       Bring up the migrations specified by their ids.  Skips any migrations
          that are already up.
 down     Bring down the migrations specified by their ids.  Skips any migrations
          that are already down.
+create   Create a new migration file with the current date and the given name.
 
 If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
@@ -56,6 +57,9 @@ command will be executed."
 
       "rollback"
       (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
+
+      "create"
+      (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " ids)) '(require 'migratus.core))
 
       (if (and (or (= command "migrate") (nil? command)) (empty? ids))
         (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
