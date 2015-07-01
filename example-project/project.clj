@@ -2,7 +2,7 @@
   :description "Migratus Leiningen plugin example project"
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [com.h2database/h2 "1.4.187"]
-                 [migratus "0.7.0"]]
+                 [migratus "0.8.0"]]
   :plugins [[migratus-lein "0.1.1"]]
   :migratus {:store :database
              :migration-dir "migrations/"
