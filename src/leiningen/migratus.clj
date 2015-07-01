@@ -36,7 +36,7 @@ create   Create a new migration file with the current date and the given name.
 
 If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
-  [project & [command & ids]]
+  [project & [command & args]]
   (if (= "java.util.logging" (logi/name log/*logger-factory*))
     (.setLevel (Logger/getLogger "") Level/SEVERE))
   (if-let [config (:migratus project)]
@@ -44,7 +44,7 @@ command will be executed."
       "up"
       (eval/eval-in-project
         project
-        `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) ids)))
+        `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) args)))
         '(require 'migratus.core))
 
       "down"
@@ -52,16 +52,16 @@ command will be executed."
         project
         `(apply core/down
                 ~config
-                ~(cons 'vector (map #(Long/parseLong %) ids)))
+                ~(cons 'vector (map #(Long/parseLong %) args)))
         '(require 'migratus.core))
 
       "rollback"
       (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
 
       "create"
-      (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " ids)) '(require 'migratus.core))
+      (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core))
 
-      (if (and (or (= command "migrate") (nil? command)) (empty? ids))
+      (if (and (or (= command "migrate") (nil? command)) (empty? args))
         (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
         (println "Unexpected arguments to 'migrate'")))
     (println "Missing :migratus config in project.clj")))
