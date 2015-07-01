@@ -8,4 +8,4 @@
              :migration-dir "migrations/"
              :db {:classname "org.h2.Driver"
                   :subprotocol "h2"
-                  :subname (str (.getName (clojure.java.io/file ".")) "/site.db")}})
+                  :subname (str (.getName (clojure.java.io/file ".")) "/example-project")}})
