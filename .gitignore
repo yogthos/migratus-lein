@@ -7,3 +7,6 @@ pom.xml
 .lein-deps-sum
 /test/log4j.properties
 *.log
+example-project/example-project.mv.db
+.idea
+migratus_lein.iml

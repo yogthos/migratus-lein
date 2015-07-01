@@ -13,14 +13,13 @@
 ;;;; under the License.
 (ns leiningen.migratus
   (:require [migratus.core :as core]
-            [migratus.cli]
             [clojure.tools.logging :as log]
             [clojure.tools.logging.impl :as logi]
             [leiningen.core.eval :as eval])
   (:import (java.util.logging Logger Level)))
 
 (defn migratus
-  "MIGRATE ALL THE THINGS!
+  "Maintain database migrations.
 
 Run migrations against a store.  The :migratus key in project.clj is passed to
 migratus as configuration.
@@ -33,33 +32,36 @@ up       Bring up the migrations specified by their ids.  Skips any migrations
          that are already up.
 down     Bring down the migrations specified by their ids.  Skips any migrations
          that are already down.
+create   Create a new migration file with the current date and the given name.
 
-If you run `lein migrate` without specifying a command, then the 'migrate'
+If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
-  [project & [command & ids]]
+  [project & [command & args]]
   (if (= "java.util.logging" (logi/name log/*logger-factory*))
     (.setLevel (Logger/getLogger "") Level/SEVERE))
   (if-let [config (:migratus project)]
-    (let [config (assoc config :store :cli :real-store (:store config))]
-      (case command
-        "up"
-        (eval/eval-in-project
-          project
-          `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) ids)))
-          '(require 'migratus.core))
+    (case command
+      "up"
+      (eval/eval-in-project
+        project
+        `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) args)))
+        '(require 'migratus.core))
 
-        "down"
-        (eval/eval-in-project
-          project
-          `(apply core/down
-                  ~config
-                  ~(cons 'vector (map #(Long/parseLong %) ids)))
-          '(require 'migratus.core))
+      "down"
+      (eval/eval-in-project
+        project
+        `(apply core/down
+                ~config
+                ~(cons 'vector (map #(Long/parseLong %) args)))
+        '(require 'migratus.core))
 
-        "rollback"
-        (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
+      "rollback"
+      (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
 
-        (if (and (or (= command "migrate") (nil? command)) (empty? ids))
-          (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
-          (println "Unexpected arguments to 'migrate'"))))
+      "create"
+      (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core))
+
+      (if (and (or (= command "migrate") (nil? command)) (empty? args))
+        (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
+        (println "Unexpected arguments to 'migrate'")))
     (println "Missing :migratus config in project.clj")))

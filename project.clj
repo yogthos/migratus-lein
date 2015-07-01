@@ -1,5 +1,5 @@
 (defproject migratus-lein "0.1.1"
-  :description "MIGRATE ALL THE THINGS!"
+  :description "Maintain database migrations."
   :url "http://github.com/pjstadig/migratus-lein"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"
