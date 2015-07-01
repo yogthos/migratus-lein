@@ -19,7 +19,7 @@
   (:import (java.util.logging Logger Level)))
 
 (defn migratus
-  "MIGRATE ALL THE THINGS!
+  "Maintain database migrations.
 
 Run migrations against a store.  The :migratus key in project.clj is passed to
 migratus as configuration.
