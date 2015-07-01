@@ -13,7 +13,6 @@
 ;;;; under the License.
 (ns leiningen.migratus
   (:require [migratus.core :as core]
-            [migratus.cli]
             [clojure.tools.logging :as log]
             [clojure.tools.logging.impl :as logi]
             [leiningen.core.eval :as eval])
@@ -40,26 +39,25 @@ command will be executed."
   (if (= "java.util.logging" (logi/name log/*logger-factory*))
     (.setLevel (Logger/getLogger "") Level/SEVERE))
   (if-let [config (:migratus project)]
-    (let [config (assoc config :store :cli :real-store (:store config))]
-      (case command
-        "up"
-        (eval/eval-in-project
-          project
-          `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) ids)))
-          '(require 'migratus.core))
+    (case command
+      "up"
+      (eval/eval-in-project
+        project
+        `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) ids)))
+        '(require 'migratus.core))
 
-        "down"
-        (eval/eval-in-project
-          project
-          `(apply core/down
-                  ~config
-                  ~(cons 'vector (map #(Long/parseLong %) ids)))
-          '(require 'migratus.core))
+      "down"
+      (eval/eval-in-project
+        project
+        `(apply core/down
+                ~config
+                ~(cons 'vector (map #(Long/parseLong %) ids)))
+        '(require 'migratus.core))
 
-        "rollback"
-        (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
+      "rollback"
+      (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core))
 
-        (if (and (or (= command "migrate") (nil? command)) (empty? ids))
-          (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
-          (println "Unexpected arguments to 'migrate'"))))
+      (if (and (or (= command "migrate") (nil? command)) (empty? ids))
+        (eval/eval-in-project project `(core/migrate ~config) '(require 'migratus.core))
+        (println "Unexpected arguments to 'migrate'")))
     (println "Missing :migratus config in project.clj")))
