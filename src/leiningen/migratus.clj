@@ -63,7 +63,7 @@ command will be executed."
 
       "create"
       (do
-        (println "creating migration files for" args)
+        (println "creating migration files for" (clojure.string/join " " args))
         (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core)))
 
       (if (and (or (= command "migrate") (nil? command)) (empty? args))
