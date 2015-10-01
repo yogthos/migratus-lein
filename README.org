@@ -25,8 +25,8 @@
   migration independently, and runs all uncompleted migrations in sorted order.
 ** Quick Start
    - Add Migratus as a dependency and the plugin:
-     : :dependencies [[migratus "0.8.1"]]
-     : :plugins [[migratus-lein "0.1.2"]]
+     : :dependencies [[migratus "0.8.4"]]
+     : :plugins [[migratus-lein "0.1.7"]]
 
    - Add the following key and value to your project.clj:
      : :migratus {:store :database
