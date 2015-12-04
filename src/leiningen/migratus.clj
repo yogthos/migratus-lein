@@ -30,6 +30,7 @@ up       Bring up the migrations specified by their ids.  Skips any migrations
 down     Bring down the migrations specified by their ids.  Skips any migrations
          that are already down.
 create   Create a new migration file with the current date and the given name.
+Destroy  Destroy a migration file with the given name.
 
 If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
@@ -65,6 +66,11 @@ command will be executed."
       (do
         (println "creating migration files for" (clojure.string/join " " args))
         (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core)))
+
+      "destroy"
+      (do
+        (println "destroy migration files for" (clojure.string/join " " args))
+        (eval/eval-in-project project `(core/destroy ~config ~(clojure.string/join " " args)) '(require 'migratus.core)))
 
       (if (and (or (= command "migrate") (nil? command)) (empty? args))
         (do

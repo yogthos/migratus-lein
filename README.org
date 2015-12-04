@@ -104,6 +104,7 @@
    | Function               | Description                                                                               |
    |------------------------+-------------------------------------------------------------------------------------------|
    | migratus.core/create   | Run 'create' to generate migration files.                                                 |
+   | migratus.core/destroy  | Run 'destroy' to delete migration files.                                                  |
    | migratus.core/migrate  | Run 'migrate' for any migrations that have not been run.                                  |
    | migratus.core/rollback | Run 'rollback' to revert last successful migration.                                       |
    | migratus.core/up       | Run 'up' for the specified migration ids. Will skip any migration that is already up.     |
@@ -113,7 +114,7 @@
 
    Migratus can also be used from leiningen if you add it (and a database driver) as a dev dependency.
 
-   : :dev-dependencies [[migratus "0.8.1"]
+   : :dev-dependencies [[migratus "0.8.8"]
    :                    [postgresql/postgresql "9.1-901.jdbc4"]]
 
    And add a configuration :migratus key to your project.clj.
