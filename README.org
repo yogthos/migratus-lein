@@ -108,6 +108,7 @@
    | migratus.core/rollback | Run 'rollback' to revert last successful migration.                                       |
    | migratus.core/up       | Run 'up' for the specified migration ids. Will skip any migration that is already up.     |
    | migratus.core/down     | Run 'down' for the specified migration ids. Will skip any migration that is already down. |
+   | migratus.core/reset    | Run 'down' for all migrations that have been run, and 'up' for all migrations.                          |
 
    See the docstrings of each function for more details.
 
