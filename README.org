@@ -25,8 +25,8 @@
   migration independently, and runs all uncompleted migrations in sorted order.
 ** Quick Start
    - Add Migratus as a dependency and the plugin:
-     : :dependencies [[migratus "0.8.9"]]
-     : :plugins [[migratus-lein "0.2.1"]]
+     : :dependencies [[migratus "0.8.11"]]
+     : :plugins [[migratus-lein "0.2.4"]]
 
    - Add the following key and value to your project.clj:
      : :migratus {:store :database
@@ -114,7 +114,7 @@
 
    Migratus can also be used from leiningen if you add it (and a database driver) as a dev dependency.
 
-   : :dev-dependencies [[migratus "0.8.1"]
+   : :dev-dependencies [[migratus "0.8.11"]
    :                    [postgresql/postgresql "9.1-901.jdbc4"]]
 
    And add a configuration :migratus key to your project.clj.
