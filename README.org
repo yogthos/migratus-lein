@@ -2,6 +2,8 @@
 * Migratus
   MIGRATE ALL THE THINGS!
 
+A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] library.
+
 [[http://clojars.org/migratus-lein][http://clojars.org/migratus-lein/latest-version.svg]]
 
   A general migration framework, with an implementation for database migrations.
@@ -108,7 +110,18 @@
    | migratus.core/rollback | Run 'rollback' to revert last successful migration.                                       |
    | migratus.core/up       | Run 'up' for the specified migration ids. Will skip any migration that is already up.     |
    | migratus.core/down     | Run 'down' for the specified migration ids. Will skip any migration that is already down. |
-   | migratus.core/reset    | Run 'down' for all migrations that have been run, and 'up' for all migrations.                          |
+   | migratus.core/reset    | Run 'down' for all migrations that have been run, and 'up' for all migrations.                          
+   
+   The 'create' command will generate the migration files with the supplied name. The files will be placed in the migrations
+   directory. Each file will be prefixed with the current timestamp and the up migration file will be postfixed with '.up.sql`,
+   while the down migration file will be postfixed with '.down.sql', e.g:
+   
+   : lein migratus create add-users-table
+   
+   will generate the following files:
+   
+   : 20160303102023-add-users-table.down.sql
+   : 20160303102023-add-users-table.up.sql
 
    See the docstrings of each function for more details.
 
