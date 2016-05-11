@@ -24,7 +24,7 @@ migratus as configuration.
 Usage `lein migratus [command & ids]`.  Where 'command' is:
 
 migrate  Bring up any migrations that are not completed.
-rollback BRing down the last applied migration.
+rollback Bring down the last applied migration.
 up       Bring up the migrations specified by their ids.  Skips any migrations
          that are already up.
 down     Bring down the migrations specified by their ids.  Skips any migrations
