@@ -27,8 +27,8 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
   migration independently, and runs all uncompleted migrations in sorted order.
 ** Quick Start
    - Add Migratus as a dependency and the plugin:
-     : :dependencies [[migratus "0.8.22"]]
-     : :plugins [[migratus-lein "0.3.4"]]
+     : :dependencies [[migratus "0.8.24"]]
+     : :plugins [[migratus-lein "0.3.6"]]
 
    - Add the following key and value to your project.clj:
      : :migratus {:store :database
