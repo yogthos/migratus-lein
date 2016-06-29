@@ -27,8 +27,8 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
   migration independently, and runs all uncompleted migrations in sorted order.
 ** Quick Start
    - Add Migratus as a dependency and the plugin:
-     : :dependencies [[migratus "0.8.25"]]
-     : :plugins [[migratus-lein "0.3.7"]]
+     : :dependencies [[migratus "0.8.26"]]
+     : :plugins [[migratus-lein "0.3.8"]]
 
    - Add the following key and value to your project.clj:
      : :migratus {:store :database
@@ -103,15 +103,16 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
    Migratus can be used programmatically by calling one of the following
    functions:
 
-   | Function               | Description                                                                               |
-   |------------------------+-------------------------------------------------------------------------------------------|
-   | migratus.core/create   | Run 'create' to generate migration files.                                                 |
-   | migratus.core/migrate  | Run 'migrate' for any migrations that have not been run.                                  |
-   | migratus.core/rollback | Run 'rollback' to revert last successful migration.                                       |
-   | migratus.core/up       | Run 'up' for the specified migration ids. Will skip any migration that is already up.     |
-   | migratus.core/down     | Run 'down' for the specified migration ids. Will skip any migration that is already down. |
-   | migratus.core/reset    | Run 'down' for all migrations that have been run, and 'up' for all migrations.                          
-   
+   | Function                   | Description                                                                               |
+   |----------------------------+-------------------------------------------------------------------------------------------|
+   | migratus.core/create       | Run 'create' to generate migration files.                                                 |
+   | migratus.core/migrate      | Run 'migrate' for any migrations that have not been run.                                  |
+   | migratus.core/rollback     | Run 'rollback' to revert last successful migration.                                       |
+   | migratus.core/up           | Run 'up' for the specified migration ids. Will skip any migration that is already up.     |
+   | migratus.core/down         | Run 'down' for the specified migration ids. Will skip any migration that is already down. |
+   | migratus.core/reset        | Run 'down' for all migrations that have been run, and 'up' for all migrations.            |              
+   | migratus.core/pending-list | Run 'pending-list' to list pending migrations                                             |   
+
    The 'create' command will generate the migration files with the supplied name. The files will be placed in the migrations
    directory. Each file will be prefixed with the current timestamp and the up migration file will be postfixed with '.up.sql`,
    while the down migration file will be postfixed with '.down.sql', e.g:

@@ -62,6 +62,11 @@ command will be executed."
         (println "rolling back last migration")
         (eval/eval-in-project project `(core/rollback ~config) '(require 'migratus.core)))
 
+      "pending"
+      (do
+        (println "listing pending migrations")
+        (eval/eval-in-project project `(core/pending-list ~config) '(require 'migratus.core)))
+
       "create"
       (do
         (println "creating migration files for" (clojure.string/join " " args))
