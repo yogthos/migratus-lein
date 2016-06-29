@@ -1,4 +1,4 @@
-(defproject migratus-lein "0.3.8"
+(defproject migratus-lein "0.3.9"
   :description "Maintain database migrations."
   :url "http://github.com/pjstadig/migratus-lein"
   :license {:name "Apache License, Version 2.0"

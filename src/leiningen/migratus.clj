@@ -65,7 +65,7 @@ command will be executed."
       "pending"
       (do
         (println "listing pending migrations")
-        (eval/eval-in-project project `(core/pending-list ~config) '(require 'migratus.core)))
+        (eval/eval-in-project project `(println (core/pending-list ~config)) '(require 'migratus.core)))
 
       "create"
       (do
