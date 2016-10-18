@@ -24,13 +24,14 @@ migratus as configuration.
 Usage `lein migratus [command & ids]`.  Where 'command' is:
 
 migrate  Bring up any migrations that are not completed.
-rollback BRing down the last applied migration.
+rollback Bring down the last applied migration.
 up       Bring up the migrations specified by their ids.  Skips any migrations
          that are already up.
 down     Bring down the migrations specified by their ids.  Skips any migrations
          that are already down.
 create   Create a new migration file with the current date and the given name.
 reset    Bring down all migrations, then bring them all back up.
+pending  Return a list of pending migrations.
 
 If you run `lein migratus` without specifying a command, then the 'migrate'
 command will be executed."
