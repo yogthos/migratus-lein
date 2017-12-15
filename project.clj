@@ -1,4 +1,4 @@
-(defproject migratus-lein "0.5.3"
+(defproject migratus-lein "0.5.4"
   :description "Maintain database migrations."
   :url "http://github.com/pjstadig/migratus-lein"
   :license {:name "Apache License, Version 2.0"
@@ -7,5 +7,5 @@
   :eval-in-leiningen true
   :aliases {"test!" ["do" "clean," "test"]}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [migratus "1.0.1"]]
+                 [migratus "1.0.2"]]
   :profiles {:dev {:dependencies [[jar-migrations "1.0.0"]]}})
