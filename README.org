@@ -129,7 +129,7 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
 
    Migratus can also be used from leiningen if you add it (and a database driver) as a dev dependency.
 
-   : :dev-dependencies [[migratus "0.9.9"]
+   : :dev-dependencies [[migratus "1.0.3"]
    :                    [postgresql/postgresql "9.1-901.jdbc4"]]
 
    And add a configuration :migratus key to your project.clj.
