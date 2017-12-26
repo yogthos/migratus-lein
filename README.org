@@ -27,8 +27,8 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
   migration independently, and runs all uncompleted migrations in sorted order.
 ** Quick Start
    - Add Migratus as a dependency and the plugin:
-     : :dependencies [[migratus "0.9.9"]]
-     : :plugins [[migratus-lein "0.5.1"]]
+     : :dependencies [[migratus "1.0.3"]]
+     : :plugins [[migratus-lein "0.5.5"]]
 
    - Add the following key and value to your project.clj:
      : :migratus {:store :database
@@ -129,7 +129,7 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
 
    Migratus can also be used from leiningen if you add it (and a database driver) as a dev dependency.
 
-   : :dev-dependencies [[migratus "0.9.9"]
+   : :dev-dependencies [[migratus "1.0.3"]
    :                    [postgresql/postgresql "9.1-901.jdbc4"]]
 
    And add a configuration :migratus key to your project.clj.
