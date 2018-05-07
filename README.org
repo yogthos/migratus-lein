@@ -105,7 +105,7 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
 
    | Function                   | Description                                                                               |
    |----------------------------+-------------------------------------------------------------------------------------------|
-   | migratus.core/create       | Run 'init' to initialize the database, e.g: create a schema.                              |
+   | migratus.core/init       | Run 'init' to initialize the database, e.g: create a schema.                              |
    | migratus.core/create       | Run 'create' to generate migration files.                                                 |
    | migratus.core/migrate      | Run 'migrate' for any migrations that have not been run.                                  |
    | migratus.core/rollback     | Run 'rollback' to revert last successful migration.                                       |
