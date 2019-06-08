@@ -124,6 +124,15 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
 
    : 20160303102023-add-users-table.down.sql
    : 20160303102023-add-users-table.up.sql
+   
+   You can also generate code-based migrations:
+   
+   : lein migratus create-add-users-table :edn
+   
+   This will generate a .edn file which should be filled out like this:
+   : {:ns my.migration.namespace
+   :  :up-fn apply-migration-fn
+   :  :down-fn undo-migration-fn}
 
    See the docstrings of each function for more details.
 
