@@ -40,6 +40,11 @@ command will be executed."
                       (update-in [:db]
                                  #(or % (-> project :env :database-url))))]
     (case command
+      "init"
+      (do
+        (println "run init script")
+        (eval/eval-in-project project `(core/init ~config) '(require 'migratus.core)))
+
       "up"
       (do
         (println "migrating" args)
