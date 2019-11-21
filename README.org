@@ -105,13 +105,13 @@ A Leiningen plugin for the [[https://github.com/yogthos/migratus][Migratus]] lib
 
    | Function                   | Description                                                                               |
    |----------------------------+-------------------------------------------------------------------------------------------|
-   | migratus.core/create       | Run 'init' to initialize the database, e.g: create a schema.                              |
+   | migratus.core/init         | Run 'init' to initialize the database, e.g: create a schema.                              |
    | migratus.core/create       | Run 'create' to generate migration files.                                                 |
    | migratus.core/migrate      | Run 'migrate' for any migrations that have not been run.                                  |
    | migratus.core/rollback     | Run 'rollback' to revert last successful migration.                                       |
    | migratus.core/up           | Run 'up' for the specified migration ids. Will skip any migration that is already up.     |
    | migratus.core/down         | Run 'down' for the specified migration ids. Will skip any migration that is already down. |
-   | migratus.core/reset        | Run 'down' for all migrations that have been run, and 'up' for all migrations.            |
+   | migratus.core/reset        | Run 'reset' for all migrations that have been run, and 'up' for all migrations.           |
    | migratus.core/pending-list | Run 'pending-list' to list pending migrations                                             |
 
    The 'create' command will generate the migration files with the supplied name. The files will be placed in the migrations
