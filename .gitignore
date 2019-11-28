@@ -10,3 +10,4 @@ pom.xml
 example-project/example-project.mv.db
 .idea
 migratus_lein.iml
+.lein-repl-history
