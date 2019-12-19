@@ -23,6 +23,7 @@ migratus as configuration.
 
 Usage `lein migratus [command & ids]`.  Where 'command' is:
 
+init     Bring up init sql script.
 migrate  Bring up any migrations that are not completed.
 rollback Bring down the last applied migration.
 up       Bring up the migrations specified by their ids.  Skips any migrations
@@ -40,23 +41,28 @@ command will be executed."
                       (update-in [:db]
                                  #(or % (-> project :env :database-url))))]
     (case command
+      "init"
+      (do
+        (println "run init script")
+        (eval/eval-in-project project `(core/init ~config) '(require 'migratus.core)))
+
       "up"
       (do
         (println "migrating" args)
         (eval/eval-in-project
-          project
-          `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) args)))
-          '(require 'migratus.core)))
+         project
+         `(apply core/up ~config ~(cons 'vector (map #(Long/parseLong %) args)))
+         '(require 'migratus.core)))
 
       "down"
       (do
         (println "rolling back" args)
         (eval/eval-in-project
-          project
-          `(apply core/down
-                  ~config
-                  ~(cons 'vector (map #(Long/parseLong %) args)))
-          '(require 'migratus.core)))
+         project
+         `(apply core/down
+                 ~config
+                 ~(cons 'vector (map #(Long/parseLong %) args)))
+         '(require 'migratus.core)))
 
       "rollback"
       (do
@@ -69,10 +75,20 @@ command will be executed."
         (eval/eval-in-project project `(println (core/pending-list ~config)) '(require 'migratus.core)))
 
       "create"
-      (do
-        (println "creating migration files for" (clojure.string/join " " args))
+      (let [is-edn #(= :edn %)]
         (println
-          (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core))))
+          (if (some is-edn args)
+            (let [_args (->> (remove is-edn args)
+                             (clojure.string/join " "))]
+              (println "creating migration files for" _args)
+              (eval/eval-in-project project
+                                    `(core/create ~config ~_args :edn)
+                                    '(require 'migratus.core)))
+            (let [_args (clojure.string/join " " args)]
+              (println "creating migration files for" _args)
+              (eval/eval-in-project project
+                                    `(core/create ~config ~_args)
+                                    '(require 'migratus.core))))))
 
       "reset"
       (do
