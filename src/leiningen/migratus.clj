@@ -69,10 +69,13 @@ command will be executed."
         (eval/eval-in-project project `(println (core/pending-list ~config)) '(require 'migratus.core)))
 
       "create"
-      (do
-        (println "creating migration files for" (clojure.string/join " " args))
+      (let [filtered-args (filter #(not= % ":edn") args)
+            migration-name (clojure.string/join " " filtered-args)
+            final-args (if (= (count filtered-args) (count args)) [migration-name]
+                           [migration-name :edn])]
+        (println "creating migration files for" migration-name)
         (println
-          (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core))))
+         (eval/eval-in-project project `(core/create ~config ~@final-args) '(require 'migratus.core))))
 
       "reset"
       (do
