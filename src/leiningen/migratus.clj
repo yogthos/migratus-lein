@@ -74,6 +74,12 @@ command will be executed."
         (println
           (eval/eval-in-project project `(core/create ~config ~(clojure.string/join " " args)) '(require 'migratus.core))))
 
+      "init"
+      (do
+        (println "initializing the database")
+        (println
+          (eval/eval-in-project project `(core/init ~config) '(require 'migratus.core))))
+
       "reset"
       (do
         (println "resetting the database")
